@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" th:replace="~{normal/base::layout(~{::section})}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head>
+        <title th:text="${title}">Home</title>
+    </head>
+    <body>
+		<section>
+			<div class="container mt-3">
+				<div class="card">
+					<div class="container text-center mt-5 mb-3">
+						<img class="user_picture mb-3" src="" th:src="@{'/images/'+${user.imageURL}}" alt="User image" />
+						<h1 class="mt-5 text-secondary fst-italic fw-light">Start adding contact on cloud...</h1>
+						<a href="#" th:href="@{/user/add-contact}" class="btn btn-primary text-uppercase mt-5">Add new Contact</a>
+					</div>
+				</div>
+			</div>
+        </section>
+    </body>
+</html>

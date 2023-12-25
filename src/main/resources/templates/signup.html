@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" th:replace="~{base::layout(~{::section})}">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Home</title>
+	</head>
+	<body>
+		<section class="banner">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 offset-md-3">
+						<div class="my-card px-3 py-2 mt-3 ">
+							<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+								<p class="text-center" th:text="${session.message.content}"></p>
+								<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+							</div>
+							<div class="container text-center">
+								<img src="" alt="register image" th:src="@{/img/add-user.png}" class="img" />
+							</div>
+							<h2 class="text-center">Register here</h2>
+							<form th:action="@{/do_register}" method="post" th:object="${user}">
+								<div class="mb-3">
+									<label for="exampleInputName" class="form-label">Your Name</label>
+									<input type="text" id="exampleInputName" name="name" th:field="*{name}"
+										th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
+										class="form-control" placeholder="Enter your name" 
+										th:value="${user.name}" autocomplete="name" required>
+									
+									<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+									</div>
+								</div>
+								<div class="mb-3">
+									<label for="exampleInputEmail" class="form-label">Email address</label>
+									<input type="email" class="form-control" id="exampleInputEmail" th:field="*{email}"
+										th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
+										aria-describedby="emailHelp" name="email"
+										placeholder="Enter your email" th:value="${user.email}" autocomplete="email" required>
+									<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+									</div>
+								</div>
+								<div class="mb-3">
+									<label for="exampleInputPassword" class="form-label">Password</label>
+									<input type="password" th:field="*{password}" class="form-control" name="password"
+										th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
+										id="exampleInputPassword" autocomplete="new-password" required>
+									<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+									</div>
+								</div>
+								<div class="mb-3">
+									<label for="exampleInputAbout" class="form-label">About yourself</label>
+									<textarea name="about" th:text="${user.about}" id="exampleInputAbout" cols="30" rows="5"
+										placeholder="Enter something about yourself" class="form-control"></textarea>
+								</div>
+								<div class="mb-3 text-center">
+									<input name="agreement" type="checkbox" class="form-check-input box" id="exampleCheck1" >
+								    <label class="form-check-label" for="exampleCheck1">Agree to <span class="termCond">T&C</span></label>
+								</div>
+								<div class="container text-center">
+									<button type="submit" class="btn bcg-primary">Submit</button>
+									<button type="reset" class="btn btn-danger">Reset</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" th:replace="~{normal/base::layout(~{::section})}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head>
+        <title th:text="${title}"></title>
+    </head>
+    <body>
+		<section>
+			<div class="card m-3">
+				<div class="card-body">
+					<h1 class="text-center">Add Contact</h1>
+					<div th:if="${session.message}" class="container mt-2">	
+						<div th:classappend="${session.message.type}" class="alert text-center" 
+							role="alert">
+							<span th:text="${session.message.content}"></span>
+						</div>
+						<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+					</div>
+					<div class="container-fluid mt-1">
+						<div class="row">
+							<div class="col-md-10 offset-md-1">
+								<form action="#" th:object="${contact}" enctype="multipart/form-data"
+								method="post" th:action="@{/user/process-contact}"
+								class="mt-2">
+									
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text me-3">
+												<i class="fa-solid fa-plus fa-padding"></i>
+											</div>
+										</div>
+										<input type="text" name="cName" 
+										th:classappend="${#fields.hasErrors('cName') ? 'is-invalid' : ''}"
+										class="form-control" th:field="*{cName}"
+										 id="inlineFormInputGroupFirstName" placeholder="Enter name here" required>
+										
+										<div class="invalid-feedback divs-padding" th:if="${#fields.hasErrors('cName')}" th:errors="*{cName}" >
+										</div>
+									</div>
+									
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text me-3">
+												<i class="fa-solid fa-user-alt fa-padding"></i>
+											</div>
+										</div>
+										<input type="text" name="cNickName" class="form-control" 
+											id="inlineFormInputGroupNickName" placeholder="Enter nick name here">
+									</div>
+									
+									
+									<div class="input-group mb-3">				
+										<div class="input-group-prepend">
+											<div class="input-group-text me-3">
+												<i class="fa-solid fa-phone fa-padding"></i>
+											</div>
+										</div>
+										<input type="number" pattern="^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$" name="cPhone"
+											th:classappend="${#fields.hasErrors('cPhone') ? 'is-invalid' : ''}"
+											class="form-control " th:field="*{cPhone}" id="inlineFormInputGroupPhoneNumber"
+											placeholder="Enter phone number here" required>
+										<div class="invalid-feedback divs-padding" th:if="${#fields.hasErrors('cPhone')}" th:errors="*{cPhone}">
+										</div>
+									</div>
+									
+									
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text me-3">
+												<span class="fa-padding">@</span>
+											</div>
+										</div>
+										<input type="email" name="cEmail" required th:field="*{cEmail}"
+											th:classappend="${#fields.hasErrors('cEmail') ? 'is-invalid' : ''}"
+											class="form-control" id="inlineFormInputGroupEmail" placeholder="Enter email here">
+										<div class="invalid-feedback divs-padding" th:if="${#fields.hasErrors('cEmail')}" th:errors="*{cEmail}">
+										</div>
+									</div>
+									
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text me-3">
+												<i class="fa-solid fa-briefcase fa-padding"></i>
+											</div>
+										</div>
+										<input type="text" name="cWork" class="form-control" id="inlineFormInputGroupWorkplace" placeholder="Enter work details">
+									</div>
+									
+									<div class="input-group mb-3">
+										<textarea id="inlineFormInputGroupDescription" class="form-control" name="cDescription" cols="30" rows="10" placeholder="Enter user's description"></textarea>
+									</div>
+									
+									<div class="input-group mb-3">
+										<input type="file" name="myImage" id="myfile" class="form-control" accept="image/*"/>
+									</div>
+									<div class="container text-center pt-3">
+										<button class="btn bcg-primary">Save</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+			<script>
+			  tinymce.init({
+			    selector: 'textarea#inlineFormInputGroupDescription',
+			    width: 1400,
+			    statusbar: false
+			  });
+		    </script>
+        </section>
+    </body>
+</html>
